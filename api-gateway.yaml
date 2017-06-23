@@ -1,0 +1,32 @@
+---
+swagger: "2.0"
+info:
+  version: "2017-06-23T11:59:22Z"
+  title: "Edison Doorbell Authentication"
+host: "API GATEWAY HOST"
+basePath: "/API GATEWAY STAGE"
+schemes:
+- "https"
+paths:
+  /OauthForwarder:
+    get:
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "200 response"
+          schema:
+            $ref: "#/definitions/Empty"
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+        uri: "LAMBDA ARN:function:OauthForwarder/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        contentHandling: "CONVERT_TO_TEXT"
+        type: "aws_proxy"
+definitions:
+  Empty:
+    type: "object"
+    title: "Empty Schema"
